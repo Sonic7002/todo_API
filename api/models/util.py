@@ -1,7 +1,7 @@
 # api/models/util.py
 # Utility functions for model templates
 
-import datetime
+from datetime import datetime
 
 def timelog() -> str:
     """

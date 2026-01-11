@@ -34,12 +34,13 @@ POST `/auth/register`
 Creates a new user account.
 
 **Request Body**
+```json
 {
   "username": "sonic",
   "email": "sonic@example.com",
   "password": "strongpassword"
 }
-
+```
 Validation Rules
 
 - **username**, **email**, **password** are required
