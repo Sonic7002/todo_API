@@ -8,17 +8,9 @@
 **Content-Type:** `application/json`
 
 **Authentication Header (Required for protected routes)**
+
 `Authorization: Bearer <JWT_TOKEN>`
-
-If this header is missing, malformed, expired, or invalid, the API will return:
-```json
-{
-  "error": "unauthorized"
-}
-```
-
-with status **401 Unauthorized.**
-
+If this header is missing, malformed, expired, or invalid, the API will return an error
 **⚠️ All errors are accompanied by a error message of the format:**
 ```json
 {
