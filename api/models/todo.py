@@ -36,7 +36,6 @@ class Todo(db.Model):
         """Return a dict representation of the Todo instance."""
         return {
             "id": self.id,
-            "user_id": self.user_id,
             "title": self.title,
             "description": self.description,
             "status": self.status,

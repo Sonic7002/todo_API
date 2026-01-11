@@ -33,13 +33,13 @@ A RESTful Todo List API with user authentication and per-user task ownership.
 ## API Endpoints
 
 ### Auth
-```
+```js
 POST /auth/register  
 POST /auth/login  
 ```
 
 ### Todos
-```
+```js
 GET /todos  
 POST /todos  
 PUT /todos/<id>  
