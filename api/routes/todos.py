@@ -11,14 +11,6 @@ todo_bp = Blueprint('todos', __name__, url_prefix='/todos')
 
 ALLOWED_STATUSES = {"todo", "inprogress", "done"}
 
-# utility (for internal use)
-def get_authenticated_user():
-    """Helper to get authenticated user or return 401 response."""
-    user = request.user
-    if not user:
-        return None, jsonify({"error": "unauthorized"}), 401
-    return user, None, None
-
 # POST: Add a new task
 @todo_bp.route('/', methods=['POST'])
 @jwt_required
@@ -27,9 +19,7 @@ def add_task():
     Create a new todo task for the authenticated user.
     Expects JSON: { "title": str, "description": str (optional) }
     """
-    user, resp, code = get_authenticated_user()
-    if resp:
-        return resp, code
+    user = request.user
 
     data = request.get_json()
     if not data or "title" not in data:
@@ -52,9 +42,7 @@ def update_task(task_id):
     Update fields of a task: title, description, status.
     Status must be one of ALLOWED_STATUSES.
     """
-    user, resp, code = get_authenticated_user()
-    if resp:
-        return resp, code
+    user = request.user
 
     data = request.get_json()
     if not data:
@@ -93,9 +81,7 @@ def delete_task(task_id):
     """
     Delete a task belonging to the authenticated user.
     """
-    user, resp, code = get_authenticated_user()
-    if resp:
-        return resp, code
+    user = request.user
 
     task = Todo.query.filter_by(id=task_id, user_id=user.id).first()
     if not task:
@@ -112,9 +98,7 @@ def get_all_tasks():
     """
     Retrieve all tasks of the authenticated user.
     """
-    user, resp, code = get_authenticated_user()
-    if resp:
-        return resp, code
+    user = request.user
 
     tasks = Todo.query.filter_by(user_id=user.id).all()
     return jsonify([task.to_dict() for task in tasks]), 200
@@ -127,9 +111,7 @@ def get_tasks_by_status(status):
     Retrieve tasks of the authenticated user filtered by status.
     Status must be one of ALLOWED_STATUSES.
     """
-    user, resp, code = get_authenticated_user()
-    if resp:
-        return resp, code
+    user = request.user
 
     if status not in ALLOWED_STATUSES:
         return jsonify({"error": "invalid status"}), 400
