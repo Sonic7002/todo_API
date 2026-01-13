@@ -3,7 +3,7 @@
 JWT token utilities.
 
 Provides methods to generate and decode JWT tokens using
-the app's secret key and algorithm.
+the app's jwt secret key and algorithm.
 """
 
 import jwt
@@ -23,7 +23,7 @@ def generate_token(user_id: int) -> str:
     }
     return jwt.encode(
         payload,
-        current_app.config["SECRET_KEY"],
+        current_app.config["JWT_SECRET_KEY"],
         algorithm=current_app.config["JWT_ALGORITHM"]
     )
 
@@ -37,6 +37,6 @@ def decode_token(token: str):
     """
     return jwt.decode(
         token,
-        current_app.config["SECRET_KEY"],
+        current_app.config["JWT_SECRET_KEY"],
         algorithms=[current_app.config["JWT_ALGORITHM"]]
     )

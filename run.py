@@ -11,5 +11,4 @@ with app.app_context():
     db.create_all()
 
 if __name__ == "__main__":
-    # For development only; disable debug in production
-    app.run(debug=True)
+    app.run()
